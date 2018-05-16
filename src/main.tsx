@@ -1,7 +1,6 @@
 import * as React from "react";
 import {renderToStaticMarkup} from "react-dom/server";
-import {RenderProps, renderToVideo} from "./renderToVideo";
-import {getVideoDetails} from "./getVideoDetails";
+import {addOverlay, RenderProps} from "./renderToVideo";
 
 class MySvg extends React.Component<RenderProps> {
     render() {
@@ -15,9 +14,4 @@ class MySvg extends React.Component<RenderProps> {
     }
 }
 
-// renderToVideo(5, 100, "./target/test.mp4", t => renderToStaticMarkup(<MySvg t={t} />));
-
-getVideoDetails("./target/90second.mp4")
-    .then(details => {
-        return renderToVideo({...details, frames: 100}, "./target/test.webm", props => renderToStaticMarkup(<MySvg {...props} />));
-    });
+addOverlay("./target/90second.mp4", props => renderToStaticMarkup(<MySvg {...props} />));
